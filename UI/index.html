@@ -1,0 +1,39 @@
+<!DOCTYPE html>  
+ <html>  
+      <head>  
+           <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
+      </head>  
+      <body>  
+           <br />  
+           <div class="container" style="position:absolute; right:800px; top:50px;">  
+                <h3 class="text-center">Provide User Rating for Cloud Bond app</h3>  
+                <div class="radio">  
+                     <input type="radio" name="rating" value="Excellent" />Excellent <br />  
+                     <input type="radio" name="rating" value="Poor" />Poor <br />  
+                </div>  
+                <div id="result"></div>  
+           </div>  
+           <br />  
+      </body>  
+ </html>  
+ <script>  
+ $(document).ready(function(){  
+      $('input[type="radio"]').click(function(){  
+           var rating = $(this).val();  
+           if(rating == "Excellent")
+            result.innerHTML = "<img src='https://cloudbondhost.s3-us-west-2.amazonaws.com/download_happy.png'>";
+           if(rating == "Poor")
+            result.innerHTML = "<img src='https://cloudbondhost.s3-us-west-2.amazonaws.com/download_sad.png'>";
+
+           var object = {"rating":rating}
+           $.ajax({  
+                url:"https://0yqmqy5ji2.execute-api.us-west-2.amazonaws.com/dev/",  
+                method:"POST",  
+                data:JSON.stringify(object),  
+                success:function(data){  
+                     window.location = "https://cloudbondhost.s3-us-west-2.amazonaws.com/stats.html";  
+                }  
+           });  
+      });  
+ });  
+ </script>  
