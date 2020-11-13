@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://cdn.anychart.com/releases/8.0.0/js/anychart-base.min.js"></script>
+</head>
+<body>
+  <div style="position:absolute; right:800px; top:100px; height: 50%" id="container"></div>
+<div id="movement" style="position:absolute; right:900px; top:600px;"
+<div><b>Total Users Rated : <div id="BasedOnUserReviews" style="display:inline" </div> </div>
+
+</div>
+
+<script>
+      anychart.onDocumentReady(function() {
+ 
+ var xhttp = new XMLHttpRequest();
+  	  xhttp.onreadystatechange = function() {
+   		 if (this.readyState == 4 && this.status == 200) {
+   		 var jcontent  = JSON.parse(xhttp.responseText);      		
+      		 // set the data
+        var data = {
+            header: ["Excellent", "Poor"],
+            rows: [
+              ["Excellent",jcontent.ExcellentRatingCount],
+              ["Poor", jcontent.PoorRatingCount]
+            ]};
+
+        // create the chart
+        var chart = anychart.column();
+ 
+        // add the data
+        chart.data(data);
+ 
+        // set the chart title
+        chart.title("Cloud Bond App Ratings");
+
+        // draw
+        chart.container("container");
+        chart.draw();
+        var a = parseInt(jcontent.ExcellentRatingCount);
+        var b = parseInt(jcontent.PoorRatingCount);
+
+
+        BasedOnUserReviews.innerHTML = a+b;
+
+
+    }
+  };
+  xhttp.open("GET", "https://fz7lbspo8d.execute-api.us-west-2.amazonaws.com/dev", true);
+  xhttp.send();
+       
+      });
+    </script>
+</body>
+</html>
